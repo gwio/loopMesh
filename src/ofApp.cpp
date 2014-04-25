@@ -9,9 +9,9 @@ void ofApp::setup(){
 
 	ofEnableAntiAliasing();
 	ofEnableDepthTest();
-	//ofEnableLighting();
+	ofEnableLighting();
 	light.setPosition(0,200,0);
-	//light.enable();
+	light.enable();
 	light.setSpecularColor(ofColor(255,255,255));
 	material.setShininess(0.5);
 	material.setAmbientColor(ofColor(122,0,0));
@@ -19,14 +19,17 @@ void ofApp::setup(){
 	glShadeModel(GL_FLAT);
 	schleifen.clear();
 
-	//for (int i = 0; i < 2; i++) {
-		//for (int j = 0; j < 2; j++) {
+
+	int resolution = 180;
+	for (int i = 0; i < 7; i++) {
+	
 
 			//closed, flip, polypoints, width, angle, addnoise, radius, position, color 
-			schleifen.push_back( Schleife(true,false,360, int(ofRandom(12,222)), TWO_PI/360, false, ofRandom(100,200) ,ofVec3f(0,0,0), ofRandom(255) ));
+			schleifen.push_back( Schleife(true,false,resolution, (i+1/2)*100, TWO_PI/resolution, false, 400*i ,ofVec3f(0,0,0), ofRandom(255) ));
+		
 
-		//}
-	//}
+		
+	}
 	
 
 
@@ -57,7 +60,7 @@ void ofApp::draw(){
 
 	cam.end();
 
-	//ofDrawBitmapString( ofToString(ofGetFrameRate(),2), ofGetWidth()-60, 50);
+	ofDrawBitmapString( ofToString(ofGetFrameRate(),2), ofGetWidth()-60, 50);
 }
 //--------------------------------------------------------------
 

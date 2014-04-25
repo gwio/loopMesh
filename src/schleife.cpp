@@ -38,7 +38,7 @@ Schleife::Schleife(bool closed_,bool flip_, int polyPoints_, int lineSteps_, flo
 
 
 
-		//ofVec3f temp = ofVec3f(50*i,0,0);
+		//ofVec3f temp = ofVec3f(2*i,0,0);
 		polyLinePoints.push_back(temp);
 		polyLine.curveTo(temp);
 	}
@@ -49,14 +49,17 @@ Schleife::Schleife(bool closed_,bool flip_, int polyPoints_, int lineSteps_, flo
 		ofTranslate(polyLinePoints[i]);
 		rotateToNormal(temp);
 
+		float alpha = ofMap(i, 1, polyLinePoints.size()-1, 0, TWO_PI*4 );
+		alpha = ((sin(alpha)+1)/2)+1;
+
 		ofVec3f pointA;
 		ofVec3f pointB;
 		if ( (flip) && (i%2==0) ){
-			pointA = ofVec3f(radius*0.8,0,0);
-			pointB = -ofVec3f(radius*0.8,0,0);
+			pointA = ofVec3f(lineSteps*0.8*alpha,0,0);
+			pointB = -ofVec3f(lineSteps*0.8*alpha,0,0);
 		} else {
-			pointA = -ofVec3f(radius*0.8,0,0);
-			pointB = ofVec3f(radius*0.8,0,0);
+			pointA = -ofVec3f(lineSteps*0.8*alpha,0,0);
+			pointB = ofVec3f(lineSteps*0.8*alpha,0,0);
 
 		}
 
