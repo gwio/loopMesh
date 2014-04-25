@@ -9,9 +9,9 @@ void ofApp::setup(){
 
 	ofEnableAntiAliasing();
 	ofEnableDepthTest();
-	ofEnableLighting();
+	//ofEnableLighting();
 	light.setPosition(0,200,0);
-	light.enable();
+	//light.enable();
 	light.setSpecularColor(ofColor(255,255,255));
 	material.setShininess(0.5);
 	material.setAmbientColor(ofColor(122,0,0));
@@ -21,11 +21,11 @@ void ofApp::setup(){
 
 
 	int resolution = 180;
-	for (int i = 0; i < 7; i++) {
+	for (int i = 0; i < 2; i++) {
 	
 
 			//closed, flip, polypoints, width, angle, addnoise, radius, position, color 
-			schleifen.push_back( Schleife(true,false,resolution, (i+1/2)*100, TWO_PI/resolution, false, 400*i ,ofVec3f(0,0,0), ofRandom(255) ));
+			schleifen.push_back( Schleife(true,false,resolution, 201, TWO_PI/resolution, false, 600*(i+1) ,ofVec3f(0,0,0), ofRandom(255) ));
 		
 
 		
