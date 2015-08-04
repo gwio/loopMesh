@@ -3,7 +3,7 @@
 
 class Schleife {
 public:
-	Schleife(bool,bool,int,int,float,bool,float, ofVec3f, float);
+	Schleife(bool,bool,int,int,float,bool,float, ofVec3f, float, int);
 
 	void setup();
 	void draw();
@@ -25,6 +25,7 @@ public:
 	bool addNoise;
 	float radius;
 	float color;
+	int wrap;
 
 	ofVec3f pos;
 };

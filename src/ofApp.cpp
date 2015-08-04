@@ -6,7 +6,7 @@
 void ofApp::setup(){
 	ofSetFrameRate(60);
 	ofSetVerticalSync(false);
-
+	ofEnableAlphaBlending();
 	ofEnableAntiAliasing();
 	ofEnableDepthTest();
 	//ofEnableLighting();
@@ -19,20 +19,21 @@ void ofApp::setup(){
 	glShadeModel(GL_FLAT);
 	schleifen.clear();
 
+	cRan = ofRandom(255);
+	int resolution = 155;
+	for (int i = 0; i < 1; i++) {
 
-	int resolution = 180;
-	for (int i = 0; i < 2; i++) {
-	
 
-			//closed, flip, polypoints, width, angle, addnoise, radius, position, color 
-			schleifen.push_back( Schleife(true,false,resolution, 201, TWO_PI/resolution, false, 600*(i+1) ,ofVec3f(0,0,0), ofRandom(255) ));
-		
+		//closed, flip, polypoints, width, angle, addnoise, radius, position, color  Huevalue, wrap (TWO_PI*x)
+		schleifen.push_back( Schleife(true,false,resolution, ofRandom(111/(i+1),500/(i+1)), TWO_PI/resolution, false, 630*(i+1) ,ofVec3f(0,0,0),cRan, 3*(i+1) ));
 
-		
+
+
 	}
-	
 
 
+	cam.setNearClip(10);
+	cam.setFarClip(10100);
 }
 
 //--------------------------------------------------------------
@@ -44,13 +45,16 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofBackground(ofColor(255));
+
+	glEnable(GL_MULTISAMPLE);
+
+	ofBackground(ofColor::white);
 	cam.begin();
 	//ofEnableLighting();
 	material.begin();
 	//ofDrawAxis(100);
 	ofSetColor(ofColor(0));
-	
+
 
 	for (int i = 0; i < schleifen.size(); i++) {
 		schleifen[i].draw();
@@ -60,7 +64,7 @@ void ofApp::draw(){
 
 	cam.end();
 
-	ofDrawBitmapString( ofToString(ofGetFrameRate(),2), ofGetWidth()-60, 50);
+	// ofDrawBitmapString( ofToString(ofGetFrameRate(),2), ofGetWidth()-60, 50);
 }
 //--------------------------------------------------------------
 
@@ -72,6 +76,8 @@ void ofApp::keyPressed(int key){
 	if (key == 's') {
 		ofSaveScreen("frame"+ofGetTimestampString()+".png");
 	}
+
+
 
 }
 

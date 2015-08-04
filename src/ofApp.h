@@ -21,7 +21,7 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
 		ofEasyCam cam;
-		
+		float cRan;
 
 		ofLight light;
 		ofMaterial material;

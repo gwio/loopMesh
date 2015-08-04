@@ -1,7 +1,7 @@
 #include "schleife.h"
 
 
-Schleife::Schleife(bool closed_,bool flip_, int polyPoints_, int lineSteps_, float alpha_, bool addNoise_, float radius_, ofVec3f pos_, float color_) {
+Schleife::Schleife(bool closed_,bool flip_, int polyPoints_, int lineSteps_, float alpha_, bool addNoise_, float radius_, ofVec3f pos_, float color_, int wrap_) {
 
 	polyPoints = polyPoints_;
 	lineSteps = lineSteps_;
@@ -12,6 +12,7 @@ Schleife::Schleife(bool closed_,bool flip_, int polyPoints_, int lineSteps_, flo
 	radius = radius_;
 	pos = pos_;
 	color = color_;
+	wrap = wrap_;
 
 	mesh.clear();
 	//mesh.setMode(OF_PRIMITIVE_POINTS);
@@ -49,7 +50,7 @@ Schleife::Schleife(bool closed_,bool flip_, int polyPoints_, int lineSteps_, flo
 		ofTranslate(polyLinePoints[i]);
 		rotateToNormal(temp);
 
-		float alpha = ofMap(i, 1, polyLinePoints.size()-1, 0, TWO_PI*4 );
+		float alpha = ofMap(i, 1, polyLinePoints.size()-1, 0, TWO_PI*wrap );
 		alpha = ((sin(alpha)+1)/2)+1;
 
 		ofVec3f pointA;
@@ -94,20 +95,20 @@ Schleife::Schleife(bool closed_,bool flip_, int polyPoints_, int lineSteps_, flo
 			mesh.addNormal(ofVec3f(0,0,1));
 
 			if ((j<=2) || (j>lineSteps-2)) {
-				mesh.addColor( ofColor::fromHsb(color,255,0));
+				mesh.addColor( ofColor::fromHsb(color,0,255));
 			} else if ((j<=8) || (j>lineSteps-8)) {
-				mesh.addColor( ofColor::fromHsb(color,255,0));
+				mesh.addColor( ofColor::fromHsb(color,0,255));
 
 			} else if (j == lineSteps/2) {
-				mesh.addColor( ofColor::fromHsb(color/2,0,255));
+				mesh.addColor( ofColor::fromHsb(color-30%255,0,255));
 
 			} else if( (j == lineSteps/3) || (j == (lineSteps/3)*2) ){
-				mesh.addColor( ofColor::fromHsb(color/2,0,255));
+				mesh.addColor(ofColor::fromHsb(color-30%255,0,255));
 
 			} else {
 
-				float cMap = ofMap(j, 0, lineSteps, -300, 300);
-				mesh.addColor( ofColor::fromHsb(color/2,0, abs(cMap)));
+				float cMap = ofMap(j, 0, lineSteps, -255, 255);
+				mesh.addColor( ofColor::fromHsb(color,abs(cMap),237));
 
 			}
 		}
